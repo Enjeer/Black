@@ -1,0 +1,3 @@
+pywebview
+cefpython3
+qtpy
