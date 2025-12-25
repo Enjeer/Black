@@ -1,0 +1,22 @@
+:root{
+    --separator-color: rgba(255, 255, 255, 0.05);
+}
+.separator{
+    width: 2px;
+    padding: 0;
+    height: 60px;
+    border: none;
+    margin: auto;
+    background-color: var(--separator-color);
+    border-radius: 5px;
+    cursor: e-resize;
+    transition: .2s ease;
+}
+
+.separator:hover, .separator:active{
+    background-color: rgba(255, 255, 255, 0.10);
+}
+
+.separator:active{
+    height: 80px;
+}

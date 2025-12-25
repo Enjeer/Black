@@ -3,7 +3,7 @@ import './Menu.css'
 
 const Interface = () => {
     return(
-        <div className="container">
+        <div className="container menu">
             {/* <AccountInfo/> */}
             <div className="TasksContainer">
                 {/* <CurrentTasks/> */}

@@ -10,22 +10,32 @@ body{
   padding: 0;
 }
 
-.appContainer{
+.container.app{
   width: 100svw;
   height: 100svh;
   display: grid;
-  grid-template-columns: 1fr 5px 1fr;
+  grid-template-columns: 40% 5px 60%;
   align-items: center;
   gap: 1px;
   box-sizing: border-box;
+  overflow: hidden;
+  position: relative;
 }
 
 .menuCont{
-  background-color: red;
   height: 100%;
 }
 
 .interfaceCont{
-  background-color: blue;
   height: 100%;
+  width: 100%;
+}
+
+.appSubContainer{
+  flex-wrap: wrap;
+  display: flex;
+}
+
+@media screen {
+  
 }

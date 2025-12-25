@@ -1,10 +1,11 @@
 import React from 'react'
 import './Interface.css'
+import Chat from './Chat/Chat.tsx'
 
 const Interface = () => {
     return(
-        <div className="container">
-            123
+        <div className="interfaceContainer">
+            <Chat/>
         </div>
     )
 }
