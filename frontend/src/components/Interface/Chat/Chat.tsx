@@ -13,7 +13,52 @@ const Chat = () => {
         chatRef.current.scrollTop = chatRef.current.scrollHeight;
     }, [history]);
 
+    const sendMessage = async (text: string) => {
+        const messages = [
+            ...history.map(h => ({
+                role: h[0],
+                content: h[1]
+            })),
+            { role: "user", content: text }
+        ];
 
+        // добавляем сообщение пользователя
+        setHistory(prev => [...prev, ['user', text, new Date()]]);
+
+        // добавляем пустое сообщение ассистента
+        setHistory(prev => [...prev, ['assistant', '', new Date()]]);
+
+        const res = await fetch("http://localhost:8000/chat", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ messages }),
+        });
+
+        const reader = res.body!.getReader();
+        const decoder = new TextDecoder();
+
+        let botMessage = "";
+
+        while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+
+            botMessage += decoder.decode(value, { stream: true });
+
+            setHistory(prev => {
+                const copy = [...prev];
+                const lastIndex = copy.length - 1;
+
+                copy[lastIndex] = [
+                    copy[lastIndex][0], // 'assistant'
+                    botMessage,
+                    copy[lastIndex][2]  // ts не меняем
+                ];
+
+                return copy;
+            });
+        }
+    };
     interface MessageProps {
         source: string;
         content: string;
@@ -30,22 +75,20 @@ const Chat = () => {
         );
     };
 
-    const newUserMessage = (e: React.FormEvent<HTMLFormElement>) => {
+    const newUserMessage = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         const form = e.currentTarget;
         const textarea = form.elements.namedItem("text") as HTMLTextAreaElement;
 
-        const content = textarea.value;
-        const stripped = content.replace(/\s/g, '');
+        const content = textarea.value.trim();
+        if (!content) return;
 
-        if (!stripped) return;
-
-        setHistory(prev => [...prev, ['user', content, new Date()]]);
         textarea.value = '';
         autoResize(textarea);
-    };
 
+        await sendMessage(content);
+    };
 
     // resizing of textarea
     const autoResize = (el: HTMLTextAreaElement) => {

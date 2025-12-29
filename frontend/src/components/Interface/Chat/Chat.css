@@ -16,6 +16,7 @@
     position: relative;
     display: flex;
     flex-direction: column;
+    justify-content: end;
     gap: 3px;
     width: 100%;
     height: calc(100% - 60px);
@@ -86,7 +87,7 @@ form{
 form textarea{
     position: relative;
     width: 100%;
-    padding: 2px 5px;
+    padding: 4px 8px;
     margin: 0;
     min-height: px;
     max-height: 150px;
