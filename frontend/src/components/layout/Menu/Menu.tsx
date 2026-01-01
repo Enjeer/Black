@@ -1,10 +1,11 @@
 import React from 'react'
 import './Menu.css'
+import AccountInfo from '../AccountInfo/AccountInfo.tsx'
 
-const Interface = () => {
+const Menu = () => {
     return(
         <div className="container menu">
-            {/* <AccountInfo/> */}
+            <AccountInfo id={12}/>
             <div className="TasksContainer">
                 {/* <CurrentTasks/> */}
                 {/* <History/> */}
@@ -13,4 +14,4 @@ const Interface = () => {
     )
 }
 
-export default Interface
+export default Menu

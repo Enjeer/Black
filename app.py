@@ -6,26 +6,20 @@ import uvicorn
 
 def start_api():
     uvicorn.run(
-        "main:app",          # путь к FastAPI
+        "backend.main:app",
         host="127.0.0.1",
         port=8000,
-        reload=False,        # ВАЖНО для pywebview
+        reload=False,
         log_level="info"
     )
 
 
 if __name__ == "__main__":
-    # 1️⃣ Запускаем API в фоне
-    api_thread = threading.Thread(
-        target=start_api,
-        daemon=True
-    )
+    api_thread = threading.Thread(target=start_api, daemon=True)
     api_thread.start()
 
-    # (необязательно, но полезно)
     time.sleep(1)
 
-    # 2️⃣ Запускаем окно
     window = webview.create_window(
         "Black | Assistant",
         "http://localhost:5173",

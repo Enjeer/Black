@@ -1,7 +1,7 @@
 import './App.css';
-import Interface from './components/Interface/Interface.jsx';
-import Menu from './components/layout/Menu/Menu.jsx';
-import DragResizer from './components/uiPrimitive/DragResizer/DragResizer.js'
+import Interface from './components/Interface/Interface.tsx';
+import Menu from './components/layout/Menu/Menu.tsx';
+import DragResizer from './components/uiPrimitive/DragResizer/DragResizer.tsx'
 import Button from './components/uiPrimitive/Button/Button.js';
 
 function App() {
