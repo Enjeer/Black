@@ -57,7 +57,7 @@ type DragInfo = {
 
 		let newLeftPercent = dragInfo.startLeftPercent + deltaPercent;
 
-		const MIN_PERCENT = 7;
+		const MIN_PERCENT = (60/dragInfo.containerWidth) * 100;
 		const MAX_PERCENT = 40;
 
 		newLeftPercent = Math.max(

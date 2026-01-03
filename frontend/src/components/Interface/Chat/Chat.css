@@ -18,8 +18,8 @@
     justify-content: end;
     width: 55svw;
     max-width: 800px;
-    height: calc(100% - 60px);
-    min-height: calc(99svh - 60px);
+    height: calc(100% - var(--input-height));
+    /* min-height: calc(99svh - 60px); */
     overflow-y: scroll;
     box-sizing: border-box;
     padding: 10px;
@@ -34,7 +34,7 @@
 .messageContainer{
     position: relative;
     width: fit-content;
-    max-width: 40%;
+    max-width: 80%;
     box-sizing: border-box;
     border-radius: 15px;
     display: flex;
@@ -47,7 +47,7 @@
 .messageContainer.user{
     padding: 5px 10px 5px 45px;
     border-bottom-right-radius: 5px;
-    text-align: right;
+    /* text-align: right; */
 }
 
 .messageTime{
@@ -77,7 +77,6 @@
 .messageContainer.assistant{
     justify-content: start;
     margin: 55px auto 55px 0;
-    max-width: 80%;
 }
 
 .messageContainer.assistant > .messageTime{
@@ -99,7 +98,7 @@ form{
     align-items: center;
     position: fixed;
     top: auto;
-    bottom: 10px;
+    bottom: 25px;
     width: 55svw;
     max-width: 800px;
     height: fit-content;
@@ -115,13 +114,13 @@ form{
 form textarea{
     position: relative;
     width: 100%;
-    padding: 4px 8px;
+    padding: 3px 12px;
     margin: 0;
     min-height: 0;
     max-height: 150px;
     resize: none;
     background: none;
-    font-size: 16px;
+    font-size: 17px;
 }
 
 textarea::-webkit-scrollbar{
@@ -144,6 +143,7 @@ form button{
     border-radius: 20px;
     
     display: flex;
+    position: relative;
     align-items: center;
     justify-content: center;
 
@@ -164,4 +164,68 @@ form button img{
     width: 37%;
     object-fit: cover;
     position: relative;
+}
+
+form button.mic_listening{
+    animation: pulse_listening_borders 2.3s infinite cubic-bezier(.1,.76,.37,1.15);
+    z-index: 5;
+}
+
+form button.mic_listening:hover{
+    scale: 1.2;
+    background-color: #CF3434;
+    animation: none;
+}
+
+form button.mic_listening::before {
+    content: "";
+    position: absolute;
+    width: 250%;
+    height: 250%;
+    border-radius: 50%;
+    background: radial-gradient(circle, #566EC345 0%, #566EC300 100%);
+    opacity: 0;
+    z-index: -1;
+    animation: pulse_listening_around 2.3s infinite ease;
+}
+
+form button.mic_listening:hover::before {
+    scale: 1.2;
+    background: none;
+    background-color: #CF343455;
+    opacity: 1;
+    animation: none;
+}
+
+form button.txt_waiting:hover{
+    scale: 1.2;
+    background-color: #CF3434;
+}
+
+form button.txt_waiting::before {
+    content: "";
+    position: absolute;
+    width: 60svw;
+    height: 30svw;
+    border-radius: 50%;
+    background: radial-gradient(circle, #aaaaaa15 0%, #c2c2c200 100%);
+    opacity: 0;
+    z-index: -1;
+    animation: pulse_listening_around 2.3s infinite ease;
+}
+
+@keyframes pulse_listening_around{
+    0%, 100% { opacity: 0; }
+    50% { opacity: 1; }
+}
+
+@keyframes pulse_listening_borders {
+    0%, 100%{  
+        scale: 1;
+        background-color: none;
+    }
+    50%{  
+        scale: 1.2;
+        background-color: #566EC320;
+    }
 }

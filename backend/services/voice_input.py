@@ -1,18 +1,51 @@
 from queue import Queue
 from RealtimeSTT import AudioToTextRecorder
 
-broadcast_enabled = False
-voice_queue = Queue()  # очередь для SSE
+from backend.services.voice_state import (
+    VoiceState,
+    get_state,
+    set_state,
+)
 
-def enable_broadcast():
-    global broadcast_enabled
-    broadcast_enabled = True
-    print("[VOICE] Broadcast enabled")
+WAKE_WORD = "привет, фин"
+
+voice_queue = Queue()
+
+
+def enable_listen_once():
+    if get_state() != VoiceState.IDLE:
+        print("[VOICE] enable rejected: busy")
+        return False
+
+    set_state(VoiceState.LISTENING)
+    return True
+
+
+def llm_done():
+    set_state(VoiceState.IDLE)
+
 
 def on_voice_text(text: str):
-    print("Recognized:", text)
-    if broadcast_enabled:
-        voice_queue.put(text)  # добавляем текст в очередь
+    text = text.strip().lower()
+    state = get_state()
+
+    # 💤 IDLE → ждём wake-word
+    if state == VoiceState.IDLE:
+        if WAKE_WORD in text:
+            print("[VOICE] wake-word detected")
+            set_state(VoiceState.LISTENING)
+        return
+
+    # 🎧 LISTENING → одна команда
+    if state == VoiceState.LISTENING:
+        if len(text) < 3:
+            return
+
+        print("[VOICE] command:", text)
+
+        set_state(VoiceState.WAITING_LLM)
+        voice_queue.put(text)
+
 
 def start_voice():
     recorder = AudioToTextRecorder(
@@ -22,6 +55,7 @@ def start_voice():
         device="cpu"
     )
 
-    print("[VOICE] listening...")
+    print("[VOICE] listening thread started")
+
     while True:
         recorder.text(on_voice_text)

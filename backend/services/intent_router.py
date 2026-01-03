@@ -1,3 +1,5 @@
+
+
 import os
 import json
 import re
@@ -86,6 +88,18 @@ def fast_intent_check(text: str) -> Optional[Dict]:
 
 
 # ---------- 2. TINY LLM CLASSIFIER ----------
+
+def extract_json(text: str) -> dict:
+    """
+    Извлекает первый JSON-объект из текста
+    """
+    match = re.search(r"\{[\s\S]*?\}", text)
+    if not match:
+        raise ValueError("No JSON found in LLM output")
+
+    return json.loads(match.group(0))
+
+
 def llm_intent_check(text: str, hf_api_key: str) -> dict:
     client = OpenAI(
         base_url="https://router.huggingface.co/v1",
@@ -98,19 +112,20 @@ def llm_intent_check(text: str, hf_api_key: str) -> dict:
         messages=[
             {
                 "role": "system",
-                "content": """
-Ты классификатор команд.
-Верни ТОЛЬКО JSON без пояснений.
-
-Формат:
-{"intent":"chat|launch|music|unknown","confidence":0.0}
-"""
+                "content": (
+                    "Ты классификатор команд.\n"
+                    "Верни ТОЛЬКО JSON без пояснений.\n\n"
+                    'Формат:\n{"intent":"chat|launch|music|unknown","confidence":0.0}'
+                )
             },
             {"role": "user", "content": text}
         ]
     )
 
-    return json.loads(completion.choices[0].message.content)
+    raw = completion.choices[0].message.content
+    print("[INTENT] raw llm output:", raw)
+
+    return extract_json(raw)
 
 
 # ---------- MAIN ENTRY ----------

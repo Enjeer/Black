@@ -21,7 +21,7 @@ if __name__ == "__main__":
     time.sleep(1)
 
     window = webview.create_window(
-        "Black | Assistant",
+        "Black | Assistant  .dev",
         "http://localhost:5173",
         width=1200,
         height=800
