@@ -27919,3 +27919,20 @@ TypeError: on_recorded_chunk() missing 1 required positional argument: 'level'
 2026-01-03 23:19:27.785 - RealTimeSTT: realtimestt - INFO - Setting listen time
 2026-01-03 23:19:27.785 - RealTimeSTT: realtimestt - INFO - State changed from 'inactive' to 'listening'
 2026-01-03 23:19:27.846 - RealTimeSTT: realtimestt - DEBUG - Waiting for recording start
+2026-01-03 23:25:16.385 - RealTimeSTT: realtimestt - INFO - Starting RealTimeSTT
+2026-01-03 23:25:16.407 - RealTimeSTT: realtimestt - INFO - Initializing audio recording (creating pyAudio input stream, sample rate: 16000 buffer size: 512
+2026-01-03 23:25:16.426 - RealTimeSTT: realtimestt - INFO - Initializing WebRTC voice with Sensitivity 3
+2026-01-03 23:25:16.426 - RealTimeSTT: realtimestt - DEBUG - WebRTC VAD voice activity detection engine initialized successfully
+2026-01-03 23:25:17.229 - RealTimeSTT: realtimestt - DEBUG - Silero VAD voice activity detection engine initialized successfully
+2026-01-03 23:25:17.230 - RealTimeSTT: realtimestt - DEBUG - Starting realtime worker
+2026-01-03 23:25:17.230 - RealTimeSTT: realtimestt - DEBUG - Waiting for main transcription model to start
+2026-01-03 23:25:24.270 - RealTimeSTT: realtimestt - DEBUG - Main transcription model ready
+2026-01-03 23:25:24.271 - RealTimeSTT: realtimestt - DEBUG - RealtimeSTT initialization completed successfully
+2026-01-03 23:25:24.272 - RealTimeSTT: realtimestt - INFO - Setting listen time
+2026-01-03 23:25:24.272 - RealTimeSTT: realtimestt - INFO - State changed from 'inactive' to 'listening'
+2026-01-03 23:25:24.275 - RealTimeSTT: realtimestt - DEBUG - Waiting for recording start
+2026-01-03 23:35:11.768 - RealTimeSTT: realtimestt - DEBUG - No samples removed, final audio length: 0
+2026-01-03 23:35:11.771 - RealTimeSTT: realtimestt - INFO - State changed from 'listening' to 'inactive'
+2026-01-03 23:35:11.771 - RealTimeSTT: realtimestt - INFO - Setting listen time
+2026-01-03 23:35:11.771 - RealTimeSTT: realtimestt - INFO - State changed from 'inactive' to 'listening'
+2026-01-03 23:35:11.774 - RealTimeSTT: realtimestt - DEBUG - Waiting for recording start
